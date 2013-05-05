@@ -1,6 +1,6 @@
 # Library for Interacting with Yahoo Datafeed.
 import urllib2 as url
-#import pandas as pd
+import pandas as pd
 
 def __request(symbol, stat):
     address = 'http://finance.yahoo.com/d/quotes.csv?s=%s&f=%s' % (symbol, stat)
@@ -168,8 +168,8 @@ def get_historical_prices(symbol, start_date, end_date):
           'e=%s&' % str(int(end_date[6:8])) + \
           'f=%s&' % str(int(end_date[0:4])) + \
           'g=d&ignore=.csv'
-    return 0
-    #return pd.read_csv(address, index_col = 0, parse_dates = True).sort()
+    #return 0
+    return pd.read_csv(address, index_col = 0, parse_dates = True).sort()
 
 def dfTwoYearClose(symbol):
     df = get_historical_prices(symbol, '20100101', '20120101')
