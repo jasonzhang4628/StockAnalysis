@@ -1,14 +1,14 @@
 from ysq import *
 
+# For testing
 sample_prices =  [450, 449, 448, 460, 452,444,450,452]
 
-
+# Input
 a = input("Please enter a stock ticker: ")
 changes = []
 
+#Get ticker's information
 price, fifty, twohundred = get_info(a)
-
-
 
 def get_info(ticker):
     return get_price(ticker), get_50day_moving_avg(ticker), get_200day_moving_avg(symbol)
@@ -20,6 +20,7 @@ for delta in changes:
 	
     elif delta >= 0:
         print("Gain is " + str(delta))
+
 
 def calc_gains(stockname, low = 0, high = 0):
     def update(stock):
