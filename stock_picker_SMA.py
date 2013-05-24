@@ -49,8 +49,9 @@ def SMAprune(ticker):
         price = get_price(ticker)
         fifty = get_50day_moving_avg(ticker)
         twohundred = get_200day_moving_avg(ticker)
+        per =  get_price_earnings_ratio(ticker)
         print [ticker, price, fifty, twohundred]
-        if price > twohundred and twohundred > fifty:
+        if price > fifty and price < twohundred and per > 5 and per < 15:
             return [ticker, price, fifty, twohundred]
     except Exception as e:
         print e
