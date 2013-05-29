@@ -5,10 +5,18 @@ import csv
 from ysq import *
 import re
 
+
+#Modular conditionals using SMAs
+def cond(price, fifty, twohundred):
+    if fifty < twohundred and fifty > (0.9 * twohundred):
+        if price < (fifty * 1.05) or price < (fifty * 0.95):
+            return True
+
 # Gather Stock tickers from csv file
 tickerList = []
 with open('companylist.csv') as f:
     reader = csv.reader(f, delimiter=' ')
+    print reader
     for row in reader:
         gunk = row[0].split("/")
         foo = gunk[0].split()
@@ -50,9 +58,9 @@ def SMAprune(ticker):
         fifty = get_50day_moving_avg(ticker)
         twohundred = get_200day_moving_avg(ticker)
         per =  get_price_earnings_ratio(ticker)
-        print [ticker, price, fifty, twohundred]
-        if price > fifty and price < twohundred and per > 5 and per < 15:
-            return [ticker, price, fifty, twohundred]
+        #print [ticker, price, fifty, twohundred]
+        if cond(price, fifty, twohundred):
+            return [ticker]
     except Exception as e:
         print e
 
@@ -63,4 +71,4 @@ for stock in newList:
     info = SMAprune(stock)
     if info != None:
         completeList.append(info)
-        writeToFile(info)
+        #writeToFile(info)
